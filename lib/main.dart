@@ -5,12 +5,14 @@ import 'package:suspension_bro/features/main_page/main_page.dart';
 import 'ui_kit/ui_kit.dart';
 
 void main() {
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => ThemeProvider()),
-    ],
-    child: const MyApp(),
-  ),);
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +20,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shortestSide = MediaQuery.of(context).size.shortestSide;
+    final isPhone = shortestSide < 600;
+
     return ChangeNotifierProvider(
       create: (_) => ThemeProvider(),
       builder: (context, child) {
@@ -28,11 +33,9 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           ),
           darkTheme: ThemeData.dark(),
-          home: const MainPageScreen(),
+          home: MainPageScreen(isPhone: isPhone),
         );
       },
     );
   }
 }
-
-
