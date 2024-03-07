@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
+import 'package:suspension_bro/core/core.dart';
 import 'package:suspension_bro/ui_kit/theme_provider.dart';
+import 'logic/logic.dart';
 
 import 'widget/widget.dart';
 
@@ -27,29 +29,37 @@ class _MainPageScreenState extends State<MainPageScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Suspension Bro"),
       ),
-      body: Stack(
-        children: [
-          SvgPicture.asset(
-            'assets/svg/background_mountains.svg',
-            height: double.infinity,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-          Align(
-            alignment: widget.isPhone ? Alignment.center : Alignment.centerLeft,
-            child: const SvgBikeWidget(),
-          ),
-          const Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+      body: BlocProvider(
+        create: (_) => locator.get<MainPageCubit>(),
+        child: BlocBuilder<MainPageCubit, MainPageState>(
+          builder: (context, state) {
+            print("TestForkSusp: ${state.forkModel.lowSpeedCompression}");
+            return Stack(
               children: [
-                SuspensionContainerWidget(),
-                SizedBox(height: 150),
-                SuspensionContainerWidget()
+                SvgPicture.asset(
+                  'assets/svg/background_mountains.svg',
+                  height: double.infinity,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+                Align(
+                  alignment: widget.isPhone ? Alignment.center : Alignment.centerLeft,
+                  child: const SvgBikeWidget(),
+                ),
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      SuspensionContainerWidget(),
+                      SizedBox(height: 150),
+                      SuspensionContainerWidget()
+                    ],
+                  ),
+                ),
               ],
-            ),
-          ),
-        ],
+            );
+          }
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _changeTheme,

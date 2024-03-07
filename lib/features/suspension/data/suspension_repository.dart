@@ -8,7 +8,7 @@ class SuspensionRepository implements ISuspensionRepository {
 
   @override
   SuspensionModel getSuspension() {
-    return SuspensionModel(
+    return const SuspensionModel(
       suspensionType: SuspensionType.fork,
       highSpeedCompression: 5,
       lowSpeedCompression: 6,

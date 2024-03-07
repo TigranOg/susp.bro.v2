@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:suspension_bro/features/main_page/main_page.dart';
 
+import 'core/core.dart';
 import 'ui_kit/ui_kit.dart';
 
 void main() {
+  setupLocator();
+
   runApp(
     MultiProvider(
       providers: [

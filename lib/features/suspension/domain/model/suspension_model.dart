@@ -1,25 +1,31 @@
 enum SuspensionType {
   fork,
   shock,
+  none,
 }
 
 class SuspensionModel {
-  final SuspensionType _suspensionType;
+  final SuspensionType suspensionType;
 
-  final int _highSpeedCompression;
-  final int _lowSpeedCompression;
-  final int _highSpeedRebound;
-  final int _lowSpeedRebound;
+  final int highSpeedCompression;
+  final int lowSpeedCompression;
+  final int highSpeedRebound;
+  final int lowSpeedRebound;
 
-  SuspensionModel({
-    required SuspensionType suspensionType,
-    required int highSpeedCompression,
-    required int lowSpeedCompression,
-    required int highSpeedRebound,
-    required int lowSpeedRebound,
-  })  : _suspensionType = suspensionType,
-        _highSpeedCompression = highSpeedCompression,
-        _lowSpeedCompression = lowSpeedCompression,
-        _highSpeedRebound = highSpeedRebound,
-        _lowSpeedRebound = lowSpeedRebound;
+  const SuspensionModel({
+    required this.suspensionType,
+    required this.highSpeedCompression,
+    required this.lowSpeedCompression,
+    required this.highSpeedRebound,
+    required this.lowSpeedRebound,
+  });
+
+  const SuspensionModel.empty()
+      : this(
+          suspensionType: SuspensionType.none,
+          lowSpeedCompression: -1,
+          highSpeedCompression: -1,
+          lowSpeedRebound: -1,
+          highSpeedRebound: -1,
+        );
 }
